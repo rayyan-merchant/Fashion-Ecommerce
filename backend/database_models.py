@@ -1,32 +1,32 @@
+# database_models.py
 from sqlalchemy import Column, Integer, String, Float, Boolean, DateTime, Date, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
 
 Base = declarative_base()
 
-
 # ---------- ARTICLES ----------
 class Articles(Base):
     __tablename__ = "articles"
 
-    article_id = Column(Integer, primary_key=True, index=True)
+    # article_id in your dataset is stored as text (e.g. "108775015")
+    article_id = Column(String(255), primary_key=True, index=True)
     product_code = Column(Integer)
     prod_name = Column(String(255))
     product_type_name = Column(String(255))
     product_group_name = Column(String(255))
     graphical_appearance_name = Column(String(255))
-    colour_group_name = Column(String(255))
+    colour_group_name = Column(String(255))  # British spelling
     department_no = Column(String(50))
     department_name = Column(String(255))
     index_name = Column(String(255))
     index_group_name = Column(String(255))
     section_name = Column(String(255))
     garment_group_name = Column(String(255))
-    detail_desc = Column(String(255))
+    detail_desc = Column(String(1000))
     price = Column(Float)
     stock = Column(Integer)
     category_id = Column(Integer, ForeignKey("categories.category_id"))
-
 
 # ---------- CATEGORIES ----------
 class Categories(Base):
@@ -35,7 +35,6 @@ class Categories(Base):
     category_id = Column(Integer, primary_key=True, index=True)
     name = Column(String(255))
     parent_category_id = Column(Integer, ForeignKey("categories.category_id"))
-
 
 # ---------- CUSTOMERS ----------
 class Customers(Base):
@@ -52,7 +51,6 @@ class Customers(Base):
     email = Column(String(255))
     signup_date = Column(DateTime, default=datetime.utcnow)
 
-
 # ---------- EVENTS ----------
 class Events(Base):
     __tablename__ = "events"
@@ -62,9 +60,8 @@ class Events(Base):
     customer_id = Column(String(255), ForeignKey("customers.customer_id"))
     article_id = Column(String(255), ForeignKey("articles.article_id"))
     event_type = Column(String(100))
-    campaign_id = Column(Integer, ForeignKey("campaigns.campaign_id"))
+    campaign_id = Column(Integer, ForeignKey("campaigns.campaign_id"), nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
-
 
 # ---------- ORDER ITEMS ----------
 class OrderItems(Base):
@@ -77,7 +74,6 @@ class OrderItems(Base):
     unit_price = Column(Float)
     line_total = Column(Float)
 
-
 # ---------- ORDERS ----------
 class Orders(Base):
     __tablename__ = "orders"
@@ -89,7 +85,6 @@ class Orders(Base):
     payment_status = Column(String(100))
     shipping_address = Column(String(255))
 
-
 # ---------- REVIEWS ----------
 class Reviews(Base):
     __tablename__ = "reviews"
@@ -98,9 +93,8 @@ class Reviews(Base):
     customer_id = Column(String(255), ForeignKey("customers.customer_id"))
     article_id = Column(String(255), ForeignKey("articles.article_id"))
     rating = Column(Integer)
-    review_text = Column(String(500))
+    review_text = Column(String(1000))
     created_at = Column(DateTime, default=datetime.utcnow)
-
 
 # ---------- TRANSACTIONS ----------
 class Transactions(Base):
