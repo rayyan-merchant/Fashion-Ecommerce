@@ -1,9 +1,9 @@
 
 # 📌 This Was the Old Dev Repo (Now Just an Intermediate One)
 
-Hey! 👋
-This is a Fashion Shopping App enhanced with Machine Learning Features.
-I use this repo to test and update code first, then push the final versions to the main repo.
+Hey! 👋 
+
+This is a fashion shopping app enhanced with machine learning features. I use this repo to test and update code first, then push the final versions to the main repo.
 
 ---
 
